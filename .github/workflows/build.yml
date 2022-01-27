@@ -32,7 +32,7 @@ jobs:
                 $env:filearch = ''
                 $env:embedarch = '-Win32'
                 $env:buildtag = ''
-                env:skipnuget = 1
+                env:skipnuget = '--skip-nuget'
               }
             x64
               {
@@ -40,7 +40,7 @@ jobs:
                 $env:filearch = '-AMD64'
                 $env:embedarch = '-AMD64'
                 $env:buildtag = ''
-                env:skipnuget = 1
+                env:skipnuget = '--skip-nuget'
               }
             arm64
               {
@@ -48,7 +48,7 @@ jobs:
                 $env:filearch = '-ARM64'
                 $env:embedarch = '-ARM64'
                 $env:buildtag = '-arm64'
-                env:skipnuget = 1
+                env:skipnuget = '--skip-nuget'
               }
           }
           Add-Content -Path $env:GITHUB_ENV -Value "ARCH=${env:ARCH}"
