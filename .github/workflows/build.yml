@@ -95,7 +95,7 @@ jobs:
           git clone https://github.com/YxomNPO/CPython-Windows-ARM64.git
           copy CPython-Windows-ARM64\buildrelease-arm64.bat cpython\Tools\msi\
           cd cpython
-          Tools\msi\buildrelease${env:buildtag}.bat -$env:ARCH --out release $env:skipmsi $env:skipnuget $env:skipzip
+          "Tools\msi\buildrelease${{ env:buildtag }}.bat" -$env:ARCH --out release $env:skipmsi $env:skipnuget $env:skipzip
           echo "In release:"
           dir release\
           dir release\$env:installerarch\
