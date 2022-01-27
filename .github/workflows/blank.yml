@@ -31,18 +31,24 @@ jobs:
                 $env:installerarch = 'Win32'
                 $env:filearch = ''
                 $env:embedarch = '-Win32'
+                $env:buildtag = ''
+                env:skipnuget = 1
               }
             x64
               {
                 $env:installerarch = 'AMD64'
                 $env:filearch = '-AMD64'
                 $env:embedarch = '-AMD64'
+                $env:buildtag = ''
+                env:skipnuget = 1
               }
             arm64
               {
                 $env:installerarch = 'ARM64'
                 $env:filearch = '-ARM64'
                 $env:embedarch = '-ARM64'
+                $env:buildtag = '-arm64'
+                env:skipnuget = 1
               }
           }
           Add-Content -Path $env:GITHUB_ENV -Value "ARCH=${env:ARCH}"
@@ -86,8 +92,9 @@ jobs:
       - name: Build installers
         continue-on-error: true
         run: |
+          copy buildrelease-arm64.bat cpython\Tools\msi\
           cd cpython
-          Tools\msi\buildrelease.bat -$env:ARCH --out release c:\python\python.exe $env:skipmsi $env:skipnuget $env:skipzip
+          Tools\msi\buildrelease${{ env.buildtag }}.bat -$env:ARCH --out release --python-exe c:\python\python.exe $env:skipmsi $env:skipnuget $env:skipzip
           echo "In release:"
           dir release\
           dir release\$env:installerarch\
